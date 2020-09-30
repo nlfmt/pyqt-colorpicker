@@ -14,7 +14,7 @@ import sys
 import colorsys
 
 from ui.colorpicker import Ui_ColorPicker
-from ui-colorpicker_light import Ui_ColorPicker as Ui_ColorPicker_light
+from ui.colorpicker_light import Ui_ColorPicker as Ui_ColorPicker_light
 
 class ColorPicker(QDialog):
 
