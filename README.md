@@ -34,7 +34,6 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
    picked_color = my_color_picker.getColor()
    ```
 
-## Info
 
 * `getColor` returns a tuple of RGB values ranging from 0 to 255, for example: `(255,0,127)`.\
   If you want the Color Picker Window to have a certain color already selected, pass an RGB tuple to it:
