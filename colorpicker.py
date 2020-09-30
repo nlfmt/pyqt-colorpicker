@@ -66,7 +66,7 @@ class ColorPicker(QDialog):
     def getColor(self, lc=None):
             if lc == None: lc = self.lastcolor
             else: self.lastcolor = lc
-            
+
             self.setRGB(lc)
             self.rgbChanged()
             r,g,b = self.hsv2rgb(lc)
@@ -151,12 +151,3 @@ class ColorPicker(QDialog):
             if pos.y() > 200: pos.setY(200)
             self.ui.selector.move(pos - QPoint(6,6))
             self.hsvChanged()
-
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    cp = ColorPicker()
-    c1 = cp.getColor((69,4,20))
-    print(c1)
-    #sys.exit(app.exec_())
