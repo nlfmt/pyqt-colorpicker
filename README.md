@@ -22,13 +22,13 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
    app = QApplication([])
    ```
 
-  then simply create an instance of the class:
+*  then simply create an instance of the class:
 
    ```python
    my_color_picker = ColorPicker()
    ```
 
-  and then run the `getColor` method:
+*  and then run the `getColor` method:
 
    ```python
    picked_color = my_color_picker.getColor()
