@@ -14,14 +14,16 @@ import sys
 import colorsys
 
 from ui.colorpicker import Ui_ColorPicker
+from ui-colorpicker_light import Ui_ColorPicker as Ui_ColorPicker_light
 
 class ColorPicker(QDialog):
 
-    def __init__(self):
+    def __init__(self, theme="dark"):
         super(ColorPicker, self).__init__()
 
         # Call UI Builder function
-        self.ui = Ui_ColorPicker()
+        if theme == "dark": self.ui = Ui_ColorPicker()
+        else: self.ui = Ui_ColorPicker_light()
         self.ui.setupUi(self)
 
         # Make Frameless
