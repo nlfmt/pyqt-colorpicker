@@ -50,7 +50,6 @@ class Ui_ColorPicker(object):
 "    font-weight: bold;\n"
 "    color: #333;\n"
 "    width: 100px;\n"
-"    background-color: #999;\n"
 "}\n"
 "QPushButton:hover{\n"
 "    border: 2px solid #777;\n"
@@ -68,7 +67,7 @@ class Ui_ColorPicker(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.drop_shadow_frame = QtWidgets.QFrame(ColorPicker)
         self.drop_shadow_frame.setStyleSheet("QFrame{\n"
-"background-color: #bbb;\n"
+"background-color: #eee;\n"
 "border-radius: 10px;\n"
 "}")
         self.drop_shadow_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -80,7 +79,7 @@ class Ui_ColorPicker(object):
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.title_bar = QtWidgets.QFrame(self.drop_shadow_frame)
         self.title_bar.setMinimumSize(QtCore.QSize(0, 32))
-        self.title_bar.setStyleSheet("background-color: #fff;")
+        self.title_bar.setStyleSheet("background-color: #bbb;")
         self.title_bar.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.title_bar.setFrameShadow(QtWidgets.QFrame.Raised)
         self.title_bar.setObjectName("title_bar")
@@ -119,7 +118,7 @@ class Ui_ColorPicker(object):
 "}")
         self.exit_btn.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("D:/Files/Code/repos/pyqt-colorpicker/ui\\../exit.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("D:/Files/Code/repos/pyqt-colorpicker/ui\\exit.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.exit_btn.setIcon(icon)
         self.exit_btn.setIconSize(QtCore.QSize(12, 12))
         self.exit_btn.setObjectName("exit_btn")

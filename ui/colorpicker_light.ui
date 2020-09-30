@@ -60,7 +60,6 @@ QPushButton{
 	font-weight: bold;
 	color: #333;
 	width: 100px;
-	background-color: #999;
 }
 QPushButton:hover{
 	border: 2px solid #777;
@@ -93,7 +92,7 @@ QPushButton:pressed{
     <widget class="QFrame" name="drop_shadow_frame">
      <property name="styleSheet">
       <string notr="true">QFrame{
-background-color: #bbb;
+background-color: #eee;
 border-radius: 10px;
 }</string>
      </property>
@@ -128,7 +127,7 @@ border-radius: 10px;
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: #fff;</string>
+         <string notr="true">background-color: #bbb;</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -229,7 +228,7 @@ QPushButton:hover{
            </property>
            <property name="icon">
             <iconset>
-             <normaloff>../exit.ico</normaloff>../exit.ico</iconset>
+             <normaloff>exit.ico</normaloff>exit.ico</iconset>
            </property>
            <property name="iconSize">
             <size>
