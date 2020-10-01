@@ -621,8 +621,11 @@ background-color: rgb(0, 0, 0);</string>
             </item>
             <item row="5" column="0">
              <widget class="QLabel" name="lbl_hex">
+              <property name="styleSheet">
+               <string notr="true">font-size: 14pt;</string>
+              </property>
               <property name="text">
-               <string>h</string>
+               <string>#</string>
               </property>
               <property name="buddy">
                <cstring>blue</cstring>

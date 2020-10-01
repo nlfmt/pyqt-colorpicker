@@ -272,6 +272,7 @@ class Ui_ColorPicker(object):
         self.hex.setObjectName("hex")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.hex)
         self.lbl_hex = QtWidgets.QLabel(self.editfields)
+        self.lbl_hex.setStyleSheet("font-size: 14pt;")
         self.lbl_hex.setObjectName("lbl_hex")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.lbl_hex)
         self.horizontalLayout.addWidget(self.editfields)
