@@ -9,7 +9,7 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
    pip install PyQt5
    ```
 
-   then add `colorpicker.py` into your project folder and import `ColorPicker`, and `QApplication`
+   then add the `colorpicker` folder into your project folder and import `ColorPicker`, and `QApplication`
 
    ```python
    from colorpicker import ColorPicker
