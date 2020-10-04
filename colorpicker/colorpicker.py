@@ -82,8 +82,7 @@ class ColorPicker(QDialog):
                 return (r,g,b)
 
             else:
-                r, g, b = self.hsv2rgb(self.lastcolor)
-                return (r,g,b)
+                return self.lastcolor
 
 
     ## Update Functions ##
