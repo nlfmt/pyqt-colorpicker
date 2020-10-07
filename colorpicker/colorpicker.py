@@ -1,17 +1,16 @@
 # ------------------------------------- #
 #                                       #
 # Modern Color Picker by Tom F.         #
-# Version 1.0.0                         #
+# Version 1.2.0                         #
 # made with Qt Creator & PyQt5          #
 #                                       #
 # ------------------------------------- #
 
-import sys
 import colorsys
 
 from PyQt5.QtCore import (QPoint, Qt)
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import (QApplication, QDialog, QGraphicsDropShadowEffect)
+from PyQt5.QtWidgets import (QDialog, QGraphicsDropShadowEffect)
 
 
 from .ui_dark import Ui_ColorPicker as Ui_Dark
