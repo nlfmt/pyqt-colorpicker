@@ -178,42 +178,37 @@ class Ui_ColorPicker(object):
         self.black_ring.setObjectName("black_ring")
         self.verticalLayout_2.addWidget(self.black_overlay)
         self.horizontalLayout.addWidget(self.color_view)
-        self.hue = QtWidgets.QSlider(self.content_bar)
+        self.frame_2 = QtWidgets.QFrame(self.content_bar)
+        self.frame_2.setMinimumSize(QtCore.QSize(40, 0))
+        self.frame_2.setStyleSheet("")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.hue_bg = QtWidgets.QFrame(self.frame_2)
+        self.hue_bg.setGeometry(QtCore.QRect(10, 0, 20, 200))
+        self.hue_bg.setMinimumSize(QtCore.QSize(20, 200))
+        self.hue_bg.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));\n"
+"border-radius: 5px;")
+        self.hue_bg.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.hue_bg.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.hue_bg.setObjectName("hue_bg")
+        self.hue_selector = QtWidgets.QLabel(self.frame_2)
+        self.hue_selector.setGeometry(QtCore.QRect(7, 185, 26, 15))
+        self.hue_selector.setMinimumSize(QtCore.QSize(26, 0))
+        self.hue_selector.setStyleSheet("background-color: #222;\n"
+"border-radius: 5px;")
+        self.hue_selector.setText("")
+        self.hue_selector.setObjectName("hue_selector")
+        self.hue = QtWidgets.QFrame(self.frame_2)
+        self.hue.setGeometry(QtCore.QRect(7, 0, 26, 200))
         self.hue.setMinimumSize(QtCore.QSize(20, 200))
-        self.hue.setMaximumSize(QtCore.QSize(20, 200))
-        self.hue.setFocusPolicy(QtCore.Qt.ClickFocus)
-        self.hue.setStyleSheet("QSlider{\n"
-"padding-top: 1px;\n"
-"padding-bottom: 2px;\n"
-"border-radius: 5px;\n"
-"}\n"
-"QSlider:groove{\n"
-"    border: 0px;\n"
-"    border-radius: 4px;\n"
-"    background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(255, 0, 0, 255), stop:0.166 rgba(255, 255, 0, 255), stop:0.333 rgba(0, 255, 0, 255), stop:0.5 rgba(0, 255, 255, 255), stop:0.666 rgba(0, 0, 255, 255), stop:0.833 rgba(255, 0, 255, 255), stop:1 rgba(255, 0, 0, 255));\n"
-"width: 14px;\n"
-"}\n"
-"QSlider:handle{\n"
-"    height: 10px;\n"
-"    margin-left: -3px;\n"
-"    margin-right: -3px;\n"
-"    margin-top: -1px;\n"
-"    margin-bottom: -1px;\n"
-"    border-radius: 5px;\n"
-"    border: 2px solid #555;\n"
-"    background-color: #555;\n"
-"}\n"
-"")
-        self.hue.setMaximum(100)
-        self.hue.setSingleStep(3)
-        self.hue.setPageStep(3)
-        self.hue.setOrientation(QtCore.Qt.Vertical)
-        self.hue.setTickPosition(QtWidgets.QSlider.NoTicks)
-        self.hue.setTickInterval(0)
+        self.hue.setStyleSheet("background-color: none;")
+        self.hue.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.hue.setFrameShadow(QtWidgets.QFrame.Raised)
         self.hue.setObjectName("hue")
-        self.horizontalLayout.addWidget(self.hue)
+        self.horizontalLayout.addWidget(self.frame_2)
         self.editfields = QtWidgets.QFrame(self.content_bar)
-        self.editfields.setMinimumSize(QtCore.QSize(120, 200))
+        self.editfields.setMinimumSize(QtCore.QSize(110, 200))
         self.editfields.setMaximumSize(QtCore.QSize(120, 200))
         self.editfields.setStyleSheet("QLabel{\n"
 "    font-family: Segoe UI;\n"
@@ -311,7 +306,6 @@ class Ui_ColorPicker(object):
         QtCore.QMetaObject.connectSlotsByName(ColorPicker)
         ColorPicker.setTabOrder(self.red, self.green)
         ColorPicker.setTabOrder(self.green, self.blue)
-        ColorPicker.setTabOrder(self.blue, self.hue)
 
     def retranslateUi(self, ColorPicker):
         _translate = QtCore.QCoreApplication.translate
