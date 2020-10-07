@@ -71,9 +71,9 @@ class ColorPicker(QDialog):
             if lc == None: lc = self.lastcolor
             else: self.lastcolor = lc
 
-            self.setRGB(self.rgb2hsv(lc))
+            self.setRGB(lc)
             self.rgbChanged()
-            r,g,b = self.hsv2rgb(lc)
+            r,g,b = lc
             self.ui.lastcolor_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
 
             if self.exec_():
@@ -98,7 +98,7 @@ class ColorPicker(QDialog):
         r,g,b = self.i(self.ui.red.text()), self.i(self.ui.green.text()), self.i(self.ui.blue.text())
         self.color = self.rgb2hsv(r,g,b)
         self.setHSV(self.color)
-        self.setHex(self.hsv2hex(self.color))
+        self.setHex(self.rgb2hex((r,g,b)))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
 
     def hexChanged(self):
