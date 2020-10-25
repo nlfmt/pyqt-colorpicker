@@ -8,24 +8,34 @@
 
 import colorsys
 
-from PyQt5.QtCore import (QPoint, Qt)
+from PyQt5.QtCore import (QPoint, Qt, QSize)
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (QDialog, QGraphicsDropShadowEffect)
 
 
 from .ui_dark import Ui_ColorPicker as Ui_Dark
+from .ui_dark_alpha import Ui_ColorPicker as Ui_Dark_Alpha
 from .ui_light import Ui_ColorPicker as Ui_Light
+from .ui_light_alpha import Ui_ColorPicker as Ui_Light_Alpha
 
 
 class ColorPicker(QDialog):
 
-    def __init__(self, lightTheme=False):
+    def __init__(self, lightTheme=False, useAlpha=False):
         super(ColorPicker, self).__init__()
 
+        self.alpha = useAlpha
+
         # Call UI Builder function
-        if lightTheme: self.ui = Ui_Light()
-        else: self.ui = Ui_Dark()
-        self.ui.setupUi(self)
+        if useAlpha:
+            if lightTheme: self.ui = Ui_Light_Alpha()
+            else: self.ui = Ui_Dark_Alpha()
+            self.ui.setupUi(self)
+        else:
+            if lightTheme: self.ui = Ui_Light()
+            else: self.ui = Ui_Dark()
+            self.ui.setupUi(self)
+
 
         # Make Frameless
         self.setWindowFlags(Qt.FramelessWindowHint)
@@ -46,6 +56,7 @@ class ColorPicker(QDialog):
         self.ui.green.textEdited.connect(self.rgbChanged)
         self.ui.blue.textEdited.connect(self.rgbChanged)
         self.ui.hex.textEdited.connect(self.hexChanged)
+        if self.alpha: self.ui.alpha.textEdited.connect(self.alphaChanged)
 
         # Connect window dragging functions
         self.ui.title_bar.mouseMoveEvent = self.moveWindow
@@ -67,21 +78,38 @@ class ColorPicker(QDialog):
 
 
     ## Main Function ##
+    def getRGB(self, lc=None):
+        if lc == None: lc = self.lastcolor
+        else: self.lastcolor = lc
+
+        self.setRGB(lc)
+        self.rgbChanged()
+        r,g,b = lc
+        self.ui.lastcolor_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
+
+        if self.exec_():
+            r, g, b = self.hsv2rgb(self.color)
+            return (r,g,b)
+
+        else:
+            return self.lastcolor
+
     def getColor(self, lc=None):
-            if lc == None: lc = self.lastcolor
-            else: self.lastcolor = lc
+        if lc == None: lc = self.lastcolor
+        else: self.lastcolor = lc
 
-            self.setRGB(lc)
-            self.rgbChanged()
-            r,g,b = lc
-            self.ui.lastcolor_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
+        self.setRGB(lc)
+        self.rgbChanged()
+        r,g,b = lc
+        self.ui.lastcolor_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
 
-            if self.exec_():
-                r, g, b = self.hsv2rgb(self.color)
-                return (r,g,b)
+        if self.exec_():
+            r, g, b = self.hsv2rgb(self.color)
+            return (r,g,b)
 
-            else:
-                return self.lastcolor
+        else:
+            return self.lastcolor
+
 
 
     ## Update Functions ##
@@ -96,6 +124,18 @@ class ColorPicker(QDialog):
 
     def rgbChanged(self):
         r,g,b = self.i(self.ui.red.text()), self.i(self.ui.green.text()), self.i(self.ui.blue.text())
+        cr,cg,cb = self.clampRGB((r,g,b))
+
+        if r!=cr or (r==0 and self.ui.red.hasFocus()):
+            self.setRGB((cr,cg,cb))
+            self.ui.red.selectAll()
+        if g!=cg or (g==0 and self.ui.green.hasFocus()):
+            self.setRGB((cr,cg,cb))
+            self.ui.green.selectAll()
+        if b!=cb or (b==0 and self.ui.blue.hasFocus()):
+            self.setRGB((cr,cg,cb))
+            self.ui.blue.selectAll()
+
         self.color = self.rgb2hsv(r,g,b)
         self.setHSV(self.color)
         self.setHex(self.rgb2hex((r,g,b)))
@@ -108,6 +148,16 @@ class ColorPicker(QDialog):
         self.setHSV(self.color)
         self.setRGB((r,g,b))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
+
+    def alphaChanged(self):
+        alpha = self.i(self.ui.alpha.text())
+        oldalpha = alpha
+        if alpha < 0: alpha = 0
+        if alpha > 100: alpha = 100
+        if alpha != oldalpha or alpha == 0:
+            self.ui.alpha.setText(str(alpha))
+            self.ui.alpha.selectAll()
+
 
 
     def setRGB(self, c):
@@ -188,10 +238,14 @@ class ColorPicker(QDialog):
             self.ui.hue_selector.move(QPoint(7,pos))
             self.hsvChanged()
 
+    ## Utility ##
+
+    ## Custom int() function, that converts uncastable strings to 0
     def i(self, text):
         try: return int(text)
         except: return 0
 
+    ## clamp function to remove near-zero values
     def clampRGB(self, rgb):
         r,g,b = rgb
         if r<0.0001: r=0

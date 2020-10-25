@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:/Files/Code/repos/pyqt-colorpicker/colorpicker/ui_dark.ui'
+# Form implementation generated from reading ui file 'D:/Files/Code/repos/pyqt-colorpicker/colorpicker/ui_dark_alpha.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.0
 #
@@ -232,12 +232,11 @@ class Ui_ColorPicker(object):
         self.editfields.setFrameShadow(QtWidgets.QFrame.Raised)
         self.editfields.setObjectName("editfields")
         self.formLayout = QtWidgets.QFormLayout(self.editfields)
-        self.formLayout.setContentsMargins(15, 0, 15, 0)
+        self.formLayout.setContentsMargins(15, 0, 15, 1)
         self.formLayout.setSpacing(5)
         self.formLayout.setObjectName("formLayout")
         self.color_vis = QtWidgets.QLabel(self.editfields)
-        self.color_vis.setMinimumSize(QtCore.QSize(0, 35))
-        self.color_vis.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.color_vis.setMinimumSize(QtCore.QSize(0, 24))
         self.color_vis.setStyleSheet("/* ALL CHANGES HERE WILL BE OVERWRITTEN */;\n"
 "background-color: rgb(255, 255, 255);\n"
 "")
@@ -245,8 +244,7 @@ class Ui_ColorPicker(object):
         self.color_vis.setObjectName("color_vis")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.color_vis)
         self.lastcolor_vis = QtWidgets.QLabel(self.editfields)
-        self.lastcolor_vis.setMinimumSize(QtCore.QSize(0, 35))
-        self.lastcolor_vis.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.lastcolor_vis.setMinimumSize(QtCore.QSize(0, 24))
         self.lastcolor_vis.setStyleSheet("/* ALL CHANGES HERE WILL BE OVERWRITTEN */;\n"
 "background-color: rgb(0, 0, 0);")
         self.lastcolor_vis.setText("")
@@ -277,11 +275,18 @@ class Ui_ColorPicker(object):
         self.lbl_hex = QtWidgets.QLabel(self.editfields)
         self.lbl_hex.setStyleSheet("font-size: 14pt;")
         self.lbl_hex.setObjectName("lbl_hex")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.lbl_hex)
+        self.formLayout.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.lbl_hex)
         self.hex = QtWidgets.QLineEdit(self.editfields)
         self.hex.setAlignment(QtCore.Qt.AlignCenter)
         self.hex.setObjectName("hex")
-        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.hex)
+        self.formLayout.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.hex)
+        self.lbl_alpha = QtWidgets.QLabel(self.editfields)
+        self.lbl_alpha.setObjectName("lbl_alpha")
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.lbl_alpha)
+        self.alpha = QtWidgets.QLineEdit(self.editfields)
+        self.alpha.setAlignment(QtCore.Qt.AlignCenter)
+        self.alpha.setObjectName("alpha")
+        self.formLayout.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.alpha)
         self.horizontalLayout.addWidget(self.editfields)
         self.verticalLayout_3.addWidget(self.content_bar)
         self.button_bar = QtWidgets.QFrame(self.drop_shadow_frame)
@@ -313,6 +318,7 @@ class Ui_ColorPicker(object):
         self.lbl_green.setBuddy(self.green)
         self.lbl_blue.setBuddy(self.blue)
         self.lbl_hex.setBuddy(self.blue)
+        self.lbl_alpha.setBuddy(self.blue)
 
         self.retranslateUi(ColorPicker)
         QtCore.QMetaObject.connectSlotsByName(ColorPicker)
@@ -331,3 +337,5 @@ class Ui_ColorPicker(object):
         self.blue.setText(_translate("ColorPicker", "255"))
         self.lbl_hex.setText(_translate("ColorPicker", "#"))
         self.hex.setText(_translate("ColorPicker", "ffffff"))
+        self.lbl_alpha.setText(_translate("ColorPicker", "A"))
+        self.alpha.setText(_translate("ColorPicker", "100"))
