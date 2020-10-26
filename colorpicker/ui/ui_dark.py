@@ -331,4 +331,3 @@ class Ui_ColorPicker(object):
         self.blue.setText(_translate("ColorPicker", "255"))
         self.lbl_hex.setText(_translate("ColorPicker", "#"))
         self.hex.setText(_translate("ColorPicker", "ffffff"))
-#import img_rc
