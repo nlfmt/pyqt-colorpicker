@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui_dark.ui'
+# Form implementation generated from reading ui file 'D:/Files/Code/repos/pyqt-colorpicker/colorpicker/ui/ui_dark.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.0
 #
@@ -232,12 +232,11 @@ class Ui_ColorPicker(object):
         self.editfields.setFrameShadow(QtWidgets.QFrame.Raised)
         self.editfields.setObjectName("editfields")
         self.formLayout = QtWidgets.QFormLayout(self.editfields)
-        self.formLayout.setContentsMargins(15, 0, 15, 0)
+        self.formLayout.setContentsMargins(15, 0, 15, 1)
         self.formLayout.setSpacing(5)
         self.formLayout.setObjectName("formLayout")
         self.color_vis = QtWidgets.QLabel(self.editfields)
-        self.color_vis.setMinimumSize(QtCore.QSize(0, 35))
-        self.color_vis.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.color_vis.setMinimumSize(QtCore.QSize(0, 24))
         self.color_vis.setStyleSheet("/* ALL CHANGES HERE WILL BE OVERWRITTEN */;\n"
 "background-color: rgb(255, 255, 255);\n"
 "")
@@ -245,8 +244,7 @@ class Ui_ColorPicker(object):
         self.color_vis.setObjectName("color_vis")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.color_vis)
         self.lastcolor_vis = QtWidgets.QLabel(self.editfields)
-        self.lastcolor_vis.setMinimumSize(QtCore.QSize(0, 35))
-        self.lastcolor_vis.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.lastcolor_vis.setMinimumSize(QtCore.QSize(0, 24))
         self.lastcolor_vis.setStyleSheet("/* ALL CHANGES HERE WILL BE OVERWRITTEN */;\n"
 "background-color: rgb(0, 0, 0);")
         self.lastcolor_vis.setText("")

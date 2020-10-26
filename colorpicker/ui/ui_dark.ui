@@ -551,20 +551,14 @@ font-weight: bold;
              <number>15</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>1</number>
             </property>
             <item row="0" column="1">
              <widget class="QLabel" name="color_vis">
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
+                <height>24</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -582,13 +576,7 @@ background-color: rgb(255, 255, 255);
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
+                <height>24</height>
                </size>
               </property>
               <property name="styleSheet">

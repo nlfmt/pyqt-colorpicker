@@ -1,7 +1,7 @@
 # ------------------------------------- #
 #                                       #
 # Modern Color Picker by Tom F.         #
-# Version 1.2.0                         #
+# Version 1.3.0                         #
 # made with Qt Creator & PyQt5          #
 #                                       #
 # ------------------------------------- #
@@ -80,7 +80,7 @@ class ColorPicker(QDialog):
         self.alpha = 100
 
 
-    ## Main Function ##
+    ## Main Function
     def getColor(self, lc=None):
         if lc != None and self.usingAlpha:
             alpha = lc[3]
@@ -97,6 +97,7 @@ class ColorPicker(QDialog):
 
         if self.exec_():
             r, g, b = self.hsv2rgb(self.color)
+            self.lastcolor = (r,g,b)
             if self.usingAlpha: return (r,g,b,self.alpha)
             return (r,g,b)
 
@@ -105,7 +106,7 @@ class ColorPicker(QDialog):
 
 
 
-    ## Update Functions ##
+    ## Update Functions
     def hsvChanged(self):
         h,s,v = (100 - self.ui.hue_selector.y() / 1.85, (self.ui.selector.x() + 6) / 2.0, (194 - self.ui.selector.y()) / 2.0)
         r,g,b = self.hsv2rgb(h,s,v)
@@ -154,7 +155,7 @@ class ColorPicker(QDialog):
 
 
 
-
+    ## Internal setting functions
     def setRGB(self, c):
         r,g,b = c
         self.ui.red.setText(str(self.i(r)))
@@ -173,7 +174,7 @@ class ColorPicker(QDialog):
         self.ui.alpha.setText(str(a))
 
 
-    ## Color Utility ##
+    ## Color Utility
     def hsv2rgb(self, h_or_color, s = 0, v = 0, a = None):
         if type(h_or_color).__name__ == "tuple":
             if len(h_or_color) == 4:
@@ -217,7 +218,7 @@ class ColorPicker(QDialog):
         return self.rgb2hex(self.hsv2rgb(h,s,v))
 
 
-    ## Dragging Functions ##
+    ## Dragging Functions
     def setDragPos(self, event):
         self.dragPos = event.globalPos()
 
@@ -246,7 +247,7 @@ class ColorPicker(QDialog):
             self.ui.hue_selector.move(QPoint(7,pos))
             self.hsvChanged()
 
-    ## Utility ##
+    ## Utility
 
     ## Custom int() function, that converts uncastable strings to 0
     def i(self, text):
