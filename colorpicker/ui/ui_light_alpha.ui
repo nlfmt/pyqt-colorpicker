@@ -39,8 +39,8 @@
 /*  LINE EDIT */
 QLineEdit{
 	color: #000;
-	background-color: #999;
-	border: 2px solid #777;
+	background-color: #bbb;
+	border: 2px solid #bbb;
 	border-radius: 5px;
 	selection-color: rgb(16, 16, 16);
 	selection-background-color: rgb(221, 51, 34);
@@ -183,7 +183,7 @@ border-radius: 10px;
            </property>
            <property name="styleSheet">
             <string notr="true">QLabel{
-	color: #555;
+	color: #444;
 	font-family: Segoe UI;
 	font-size: 9pt;
 }</string>
@@ -227,8 +227,8 @@ QPushButton:hover{
             <string/>
            </property>
            <property name="icon">
-            <iconset>
-             <normaloff>exit.ico</normaloff>exit.ico</iconset>
+            <iconset resource="img.qrc">
+             <normaloff>:/img/exit.ico</normaloff>:/img/exit.ico</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -513,7 +513,7 @@ border-radius: 5px;</string>
 	font-family: Segoe UI;
 	font-weight: bold;
 	font-size: 11pt;
-	color: #222;
+	color: #666;
 	border-radius: 5px;
 }
 </string>
@@ -541,14 +541,14 @@ border-radius: 5px;</string>
              <number>15</number>
             </property>
             <property name="bottomMargin">
-             <number>3</number>
+             <number>1</number>
             </property>
             <item row="0" column="1">
              <widget class="QLabel" name="color_vis">
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>30</height>
+                <height>24</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -566,7 +566,7 @@ background-color: rgb(255, 255, 255);
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>30</height>
+                <height>24</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -641,7 +641,7 @@ background-color: rgb(0, 0, 0);</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
+            <item row="6" column="1">
              <widget class="QLineEdit" name="hex">
               <property name="text">
                <string>ffffff</string>
@@ -651,13 +651,33 @@ background-color: rgb(0, 0, 0);</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
+            <item row="6" column="0">
              <widget class="QLabel" name="lbl_hex">
               <property name="styleSheet">
                <string notr="true">font-size: 14pt;</string>
               </property>
               <property name="text">
                <string>#</string>
+              </property>
+              <property name="buddy">
+               <cstring>blue</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="alpha">
+              <property name="text">
+               <string>255</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="lbl_alpha">
+              <property name="text">
+               <string>A</string>
               </property>
               <property name="buddy">
                <cstring>blue</cstring>
@@ -731,6 +751,8 @@ padding: 5px
   <tabstop>green</tabstop>
   <tabstop>blue</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="img.qrc"/>
+ </resources>
  <connections/>
 </ui>

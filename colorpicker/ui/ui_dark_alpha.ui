@@ -227,8 +227,8 @@ QPushButton:hover{
             <string/>
            </property>
            <property name="icon">
-            <iconset>
-             <normaloff>../exit.ico</normaloff>../exit.ico</iconset>
+            <iconset resource="img.qrc">
+             <normaloff>:/img/exit.ico</normaloff>:/img/exit.ico</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -551,20 +551,14 @@ font-weight: bold;
              <number>15</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>1</number>
             </property>
             <item row="0" column="1">
              <widget class="QLabel" name="color_vis">
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
+                <height>24</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -582,13 +576,7 @@ background-color: rgb(255, 255, 255);
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
+                <height>24</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -663,7 +651,7 @@ background-color: rgb(0, 0, 0);</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
+            <item row="6" column="0">
              <widget class="QLabel" name="lbl_hex">
               <property name="styleSheet">
                <string notr="true">font-size: 14pt;</string>
@@ -676,10 +664,30 @@ background-color: rgb(0, 0, 0);</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
+            <item row="6" column="1">
              <widget class="QLineEdit" name="hex">
               <property name="text">
                <string>ffffff</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="lbl_alpha">
+              <property name="text">
+               <string>A</string>
+              </property>
+              <property name="buddy">
+               <cstring>blue</cstring>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="alpha">
+              <property name="text">
+               <string>100</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -753,6 +761,8 @@ padding: 5px
   <tabstop>green</tabstop>
   <tabstop>blue</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="img.qrc"/>
+ </resources>
  <connections/>
 </ui>

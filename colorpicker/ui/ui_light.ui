@@ -38,9 +38,9 @@
 
 /*  LINE EDIT */
 QLineEdit{
-	color: rgb(221, 221, 221);
-	background-color: #303030;
-	border: 2px solid #303030;
+	color: #000;
+	background-color: #bbb;
+	border: 2px solid #bbb;
 	border-radius: 5px;
 	selection-color: rgb(16, 16, 16);
 	selection-background-color: rgb(221, 51, 34);
@@ -48,23 +48,23 @@ QLineEdit{
 	font-size: 11pt;
 }
 QLineEdit::focus{
-	border-color: #aaaaaa;
+	border-color: #444;
 }
 
 /* PUSH BUTTON */
 QPushButton{
-	border: 2px solid #aaa;
+	border: 2px solid #777;
 	border-radius: 5px;
 	font-family: Segoe UI;
 	font-size: 9pt;
 	font-weight: bold;
-	color: #ccc;
+	color: #333;
 	width: 100px;
 }
 QPushButton:hover{
-	border: 2px solid #aaa;
-	color: #222;
-	background-color: #aaa;
+	border: 2px solid #777;
+	color: #111;
+	background-color: #777;
 }
 QPushButton:pressed{
 	border: 2px solid #aaa;
@@ -92,7 +92,7 @@ QPushButton:pressed{
     <widget class="QFrame" name="drop_shadow_frame">
      <property name="styleSheet">
       <string notr="true">QFrame{
-background-color: #202020;
+background-color: #eee;
 border-radius: 10px;
 }</string>
      </property>
@@ -127,7 +127,7 @@ border-radius: 10px;
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(48, 48, 48);</string>
+         <string notr="true">background-color: #bbb;</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -183,7 +183,7 @@ border-radius: 10px;
            </property>
            <property name="styleSheet">
             <string notr="true">QLabel{
-	color: #fff;
+	color: #444;
 	font-family: Segoe UI;
 	font-size: 9pt;
 }</string>
@@ -216,19 +216,19 @@ border-radius: 10px;
            <property name="styleSheet">
             <string notr="true">QPushButton{
 	border: none;
-	background-color: #aaaaaa;
+	background-color: #888;
 	border-radius: 8px
 }
 QPushButton:hover{
-	background-color: #666666;
+	background-color: #444;
 }</string>
            </property>
            <property name="text">
             <string/>
            </property>
            <property name="icon">
-            <iconset>
-             <normaloff>../exit.ico</normaloff>../exit.ico</iconset>
+            <iconset resource="img.qrc">
+             <normaloff>:/img/exit.ico</normaloff>:/img/exit.ico</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -247,17 +247,7 @@ QPushButton:hover{
          <enum>Qt::LeftToRight</enum>
         </property>
         <property name="styleSheet">
-         <string notr="true">QWidget{
-border-radius: 5px
-}
-#color_view{
-	border-bottom-left-radius: 7px;
-	border-bottom-right-radius: 7px;
-}
-#black_overlay{
-	border-bottom-left-radius: 6px;
-	border-bottom-right-radius: 6px;
-}</string>
+         <string notr="true">border-radius: 4px</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -327,7 +317,7 @@ background-color: qlineargradient(x1:1, x2:0, stop:0 hsl(0%,100%,50%), stop:1 rg
              <widget class="QFrame" name="black_overlay">
               <property name="styleSheet">
                <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0, 0, 0, 255));
-
+border-radius: 4px;
 
 </string>
               </property>
@@ -470,7 +460,7 @@ border-radius: 5px;</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: #aaa;
+             <string notr="true">background-color: #222;
 border-radius: 5px;</string>
             </property>
             <property name="text">
@@ -521,9 +511,9 @@ border-radius: 5px;</string>
            <property name="styleSheet">
             <string notr="true">QLabel{
 	font-family: Segoe UI;
-font-weight: bold;
+	font-weight: bold;
 	font-size: 11pt;
-	color: #aaaaaa;
+	color: #666;
 	border-radius: 5px;
 }
 </string>
@@ -545,7 +535,7 @@ font-weight: bold;
              <number>15</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>10</number>
             </property>
             <property name="rightMargin">
              <number>15</number>
@@ -558,7 +548,7 @@ font-weight: bold;
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>24</height>
+                <height>30</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -576,7 +566,7 @@ background-color: rgb(255, 255, 255);
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>24</height>
+                <height>30</height>
                </size>
               </property>
               <property name="styleSheet">
@@ -651,20 +641,7 @@ background-color: rgb(0, 0, 0);</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="lbl_hex">
-              <property name="styleSheet">
-               <string notr="true">font-size: 14pt;</string>
-              </property>
-              <property name="text">
-               <string>#</string>
-              </property>
-              <property name="buddy">
-               <cstring>blue</cstring>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
+            <item row="5" column="1">
              <widget class="QLineEdit" name="hex">
               <property name="text">
                <string>ffffff</string>
@@ -675,22 +652,15 @@ background-color: rgb(0, 0, 0);</string>
              </widget>
             </item>
             <item row="5" column="0">
-             <widget class="QLabel" name="lbl_alpha">
+             <widget class="QLabel" name="lbl_hex">
+              <property name="styleSheet">
+               <string notr="true">font-size: 14pt;</string>
+              </property>
               <property name="text">
-               <string>A</string>
+               <string>#</string>
               </property>
               <property name="buddy">
                <cstring>blue</cstring>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QLineEdit" name="alpha">
-              <property name="text">
-               <string>100</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -710,7 +680,7 @@ background-color: rgb(0, 0, 0);</string>
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame{
-background-color: #1d1d1d;
+background-color: #ccc;
 padding: 5px
 }
 </string>
@@ -761,6 +731,8 @@ padding: 5px
   <tabstop>green</tabstop>
   <tabstop>blue</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="img.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -12,11 +12,13 @@ from PyQt5.QtCore import (QPoint, Qt, QSize)
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (QDialog, QGraphicsDropShadowEffect)
 
+from .ui.img import *
 
-from .ui_dark import Ui_ColorPicker as Ui_Dark
-from .ui_dark_alpha import Ui_ColorPicker as Ui_Dark_Alpha
-from .ui_light import Ui_ColorPicker as Ui_Light
-from .ui_light_alpha import Ui_ColorPicker as Ui_Light_Alpha
+from .ui.ui_dark import Ui_ColorPicker as Ui_Dark
+from .ui.ui_dark_alpha import Ui_ColorPicker as Ui_Dark_Alpha
+from .ui.ui_light import Ui_ColorPicker as Ui_Light
+from .ui.ui_light_alpha import Ui_ColorPicker as Ui_Light_Alpha
+
 
 
 class ColorPicker(QDialog):
@@ -24,7 +26,7 @@ class ColorPicker(QDialog):
     def __init__(self, lightTheme=False, useAlpha=False):
         super(ColorPicker, self).__init__()
 
-        self.alpha = useAlpha
+        self.usingAlpha = useAlpha
 
         # Call UI Builder function
         if useAlpha:
@@ -56,7 +58,7 @@ class ColorPicker(QDialog):
         self.ui.green.textEdited.connect(self.rgbChanged)
         self.ui.blue.textEdited.connect(self.rgbChanged)
         self.ui.hex.textEdited.connect(self.hexChanged)
-        if self.alpha: self.ui.alpha.textEdited.connect(self.alphaChanged)
+        if self.usingAlpha: self.ui.alpha.textEdited.connect(self.alphaChanged)
 
         # Connect window dragging functions
         self.ui.title_bar.mouseMoveEvent = self.moveWindow
@@ -75,26 +77,16 @@ class ColorPicker(QDialog):
 
         self.lastcolor = (0,0,0)
         self.color = (0,0,0)
+        self.alpha = 100
 
 
     ## Main Function ##
-    def getRGB(self, lc=None):
-        if lc == None: lc = self.lastcolor
-        else: self.lastcolor = lc
-
-        self.setRGB(lc)
-        self.rgbChanged()
-        r,g,b = lc
-        self.ui.lastcolor_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
-
-        if self.exec_():
-            r, g, b = self.hsv2rgb(self.color)
-            return (r,g,b)
-
-        else:
-            return self.lastcolor
-
     def getColor(self, lc=None):
+        if lc != None and self.usingAlpha:
+            alpha = lc[3]
+            lc = lc[:3]
+            self.setAlpha(alpha)
+            self.alpha = alpha
         if lc == None: lc = self.lastcolor
         else: self.lastcolor = lc
 
@@ -105,6 +97,7 @@ class ColorPicker(QDialog):
 
         if self.exec_():
             r, g, b = self.hsv2rgb(self.color)
+            if self.usingAlpha: return (r,g,b,self.alpha)
             return (r,g,b)
 
         else:
@@ -157,6 +150,8 @@ class ColorPicker(QDialog):
         if alpha != oldalpha or alpha == 0:
             self.ui.alpha.setText(str(alpha))
             self.ui.alpha.selectAll()
+        self.alpha = alpha
+
 
 
 
@@ -174,18 +169,31 @@ class ColorPicker(QDialog):
     def setHex(self, c):
         self.ui.hex.setText(c)
 
+    def setAlpha(self, a):
+        self.ui.alpha.setText(str(a))
+
 
     ## Color Utility ##
-    def hsv2rgb(self, h_or_color, s = 0, v = 0):
-        if type(h_or_color).__name__ == "tuple": h,s,v = h_or_color
+    def hsv2rgb(self, h_or_color, s = 0, v = 0, a = None):
+        if type(h_or_color).__name__ == "tuple":
+            if len(h_or_color) == 4:
+                h,s,v,a = h_or_color
+            else:
+                h,s,v = h_or_color
         else: h = h_or_color
         r,g,b = colorsys.hsv_to_rgb(h / 100.0, s / 100.0, v / 100.0)
+        if a != None: return (r * 255, g * 255, b * 255, a)
         return (r * 255, g * 255, b * 255)
 
-    def rgb2hsv(self, r_or_color, g = 0, b = 0):
-        if type(r_or_color).__name__ == "tuple": r,g,b = r_or_color
+    def rgb2hsv(self, r_or_color, g = 0, b = 0, a = None):
+        if type(r_or_color).__name__ == "tuple":
+            if len(r_or_color) == 4:
+                r,g,b,a = r_or_color
+            else:
+                r,g,b = r_or_color
         else: r = r_or_color
         h,s,v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
+        if a != None: return (h * 100, s * 100, v * 100, a)
         return (h * 100, s * 100, v * 100)
 
     def hex2rgb(self, hex):
@@ -194,8 +202,8 @@ class ColorPicker(QDialog):
         rgb = tuple(int(hex[i:i+2], 16) for i in (0,2,4))
         return rgb
 
-    def rgb2hex(self, r_or_color, g = 0, b = 0):
-        if type(r_or_color).__name__ == "tuple": r,g,b = r_or_color
+    def rgb2hex(self, r_or_color, g = 0, b = 0, a = 0):
+        if type(r_or_color).__name__ == "tuple": r,g,b = r_or_color[:3]
         else: r = r_or_color
         hex = '%02x%02x%02x' % (int(r),int(g),int(b))
         return hex
@@ -203,8 +211,8 @@ class ColorPicker(QDialog):
     def hex2hsv(self, hex):
         return self.rgb2hsv(self.hex2rgb(hex))
 
-    def hsv2hex(self, h_or_color, s = 0, v = 0):
-        if type(h_or_color).__name__ == "tuple": h,s,v = h_or_color
+    def hsv2hex(self, h_or_color, s = 0, v = 0, a = 0):
+        if type(h_or_color).__name__ == "tuple": h,s,v = h_or_color[:3]
         else: h = h_or_color
         return self.rgb2hex(self.hsv2rgb(h,s,v))
 
