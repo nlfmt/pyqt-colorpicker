@@ -96,3 +96,9 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
   **HSV** values range from **0** to **100**\
   **HEX** values should be in format: `"XXXXXX"` or `"xxxxxx"`\
   **Alpha** values range from **0** to **100**
+
+
+## License
+
+  This software is licensed under the **MIT License**.\
+  More information is provided in the dedicated LICENSE file.
