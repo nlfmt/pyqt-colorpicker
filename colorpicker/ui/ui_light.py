@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:/Files/Code/repos/pyqt-colorpicker/colorpicker/ui_light.ui'
+# Form implementation generated from reading ui file 'ui_light.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.0
 #
@@ -29,8 +29,8 @@ class Ui_ColorPicker(object):
 "/*  LINE EDIT */\n"
 "QLineEdit{\n"
 "    color: #000;\n"
-"    background-color: #999;\n"
-"    border: 2px solid #777;\n"
+"    background-color: #bbb;\n"
+"    border: 2px solid #bbb;\n"
 "    border-radius: 5px;\n"
 "    selection-color: rgb(16, 16, 16);\n"
 "    selection-background-color: rgb(221, 51, 34);\n"
@@ -97,7 +97,7 @@ class Ui_ColorPicker(object):
         self.window_title.setSizePolicy(sizePolicy)
         self.window_title.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.window_title.setStyleSheet("QLabel{\n"
-"    color: #555;\n"
+"    color: #444;\n"
 "    font-family: Segoe UI;\n"
 "    font-size: 9pt;\n"
 "}")
@@ -118,7 +118,7 @@ class Ui_ColorPicker(object):
 "}")
         self.exit_btn.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("D:/Files/Code/repos/pyqt-colorpicker/colorpicker\\exit.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/img/exit.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.exit_btn.setIcon(icon)
         self.exit_btn.setIconSize(QtCore.QSize(12, 12))
         self.exit_btn.setObjectName("exit_btn")
@@ -214,7 +214,7 @@ class Ui_ColorPicker(object):
 "    font-family: Segoe UI;\n"
 "    font-weight: bold;\n"
 "    font-size: 11pt;\n"
-"    color: #222;\n"
+"    color: #666;\n"
 "    border-radius: 5px;\n"
 "}\n"
 "")
@@ -222,7 +222,7 @@ class Ui_ColorPicker(object):
         self.editfields.setFrameShadow(QtWidgets.QFrame.Raised)
         self.editfields.setObjectName("editfields")
         self.formLayout = QtWidgets.QFormLayout(self.editfields)
-        self.formLayout.setContentsMargins(15, 10, 15, 3)
+        self.formLayout.setContentsMargins(15, 10, 15, 1)
         self.formLayout.setSpacing(5)
         self.formLayout.setObjectName("formLayout")
         self.color_vis = QtWidgets.QLabel(self.editfields)

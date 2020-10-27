@@ -19,7 +19,7 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
    from PyQt5.QtWidgets import QApplication
    ```
 
-2. To ask for a color first create an `QApplication`:
+2. To ask for a color first create a `QApplication`:
 
    ```python
    app = QApplication([])
@@ -31,17 +31,74 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
    my_color_picker = ColorPicker()
    ```
 
-   and then run the `getColor` method:
+   and run the `getColor` method:
 
    ```python
    picked_color = my_color_picker.getColor()
    ```
 
+## Customization
 
-* `getColor` returns a tuple of RGB values ranging from 0 to 255, for example: `(255,0,127)`.\
-  If you want the Color Picker Window to have a certain color already selected, pass an RGB tuple to it:
+* **Showing custom last color:**
 
    ```python
    old_color = (255,255,255)
    picked_color = my_color_picker.getColor(old_color)
    ```
+
+* **Changing the UI Theme**
+
+  ```python
+  my_color_picker = ColorPicker(lightTheme=True)
+  ```
+
+* **Adding Alpha selection**
+
+  ```python
+  my_color_picker = ColorPicker(useAlpha=True)
+  ```
+
+  When the ColorPicker uses Alpha, you have to pass a RGBA tuple\
+  as the last color, otherwise there wil be an error.
+
+  ```python
+  my_color_picker = ColorPicker(useAlpha=True)
+
+  old_color = (255,255,255,100)
+  picked_color = my_color_picker.getColor(old_color) # => (r,g,b,a)
+  ```
+
+## Color Formats and Conversion
+
+* The default format `getColor` will give you is RGB(A),\
+  but you can use Colorpickers color conversion functions\
+  if you have a different format like HSV or HEX.
+
+   `hsv2rgb` **HSV(A)** to **RGB(A)**\
+   `rgb2hsv` **RGB(A)** to **HSV(A)**\
+   `rgb2hex` **RGB(A)** to **HEX**\
+   `hex2rgb` **HEX** to **RGB**\
+   `hex2hsv` **HEX** to **HSV**\
+   `hsv2hex` **HSV(A)** to **HEX**
+
+* Example:
+  ```python
+  cp = ColorPicker(useAlpha=True)
+
+  old_color = cp.hsv2rgb((50,50,100,100))  # => (127,255,255,100)
+
+  picked_color = cp.rgb2hsv(cp.getColor(old_color))
+  ```
+
+* **Color Formats:**
+
+  **RGB** values range from **0** to **255**\
+  **HSV** values range from **0** to **100**\
+  **HEX** values should be in format: `"XXXXXX"` or `"xxxxxx"`\
+  **Alpha** values range from **0** to **100**
+
+
+## License
+
+  This software is licensed under the **MIT License**.\
+  More information is provided in the dedicated LICENSE file.
