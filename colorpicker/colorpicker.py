@@ -10,7 +10,7 @@ import colorsys
 
 from PyQt5.QtCore import (QPoint, Qt, QSize)
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import (QDialog, QGraphicsDropShadowEffect)
+from PyQt5.QtWidgets import (QApplication, QDialog, QGraphicsDropShadowEffect)
 
 from .ui.img import *
 
@@ -20,10 +20,19 @@ from .ui.ui_light import Ui_ColorPicker as Ui_Light
 from .ui.ui_light_alpha import Ui_ColorPicker as Ui_Light_Alpha
 
 
-
 class ColorPicker(QDialog):
 
-    def __init__(self, lightTheme=False, useAlpha=False):
+    def __init__(self, lightTheme: bool = False, useAlpha: bool = False):
+        """Create a new ColorPicker instance.
+
+        :param lightTheme: If the UI should be light themed.
+        :param useAlpha: If the ColorPicker should work with alpha values.
+        """
+
+        # auto-create QApplication if it doesn't exist yet
+        self.app = QApplication.instance()
+        if self.app is None: self.app = QApplication([])
+
         super(ColorPicker, self).__init__()
 
         self.usingAlpha = useAlpha
@@ -75,13 +84,17 @@ class ColorPicker(QDialog):
         self.ui.buttonBox.rejected.connect(self.reject)
         self.ui.exit_btn.clicked.connect(self.reject)
 
-        self.lastcolor = (0,0,0)
-        self.color = (0,0,0)
+        self.lastcolor = (0, 0, 0)
+        self.color = (0, 0, 0)
         self.alpha = 100
 
+    def getColor(self, lc: tuple = None):
+        """Open the UI and get a color from the user.
 
-    ## Main Function
-    def getColor(self, lc=None):
+        :param lc: The color to show as previous color.
+        :return: The selected color.
+        """
+
         if lc != None and self.usingAlpha:
             alpha = lc[3]
             lc = lc[:3]
@@ -96,7 +109,7 @@ class ColorPicker(QDialog):
         self.ui.lastcolor_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
 
         if self.exec_():
-            r, g, b = self.hsv2rgb(self.color)
+            r, g, b = hsv2rgb(self.color)
             self.lastcolor = (r,g,b)
             if self.usingAlpha: return (r,g,b,self.alpha)
             return (r,g,b)
@@ -104,15 +117,13 @@ class ColorPicker(QDialog):
         else:
             return self.lastcolor
 
-
-
-    ## Update Functions
+    # Update Functions
     def hsvChanged(self):
         h,s,v = (100 - self.ui.hue_selector.y() / 1.85, (self.ui.selector.x() + 6) / 2.0, (194 - self.ui.selector.y()) / 2.0)
-        r,g,b = self.hsv2rgb(h,s,v)
+        r,g,b = hsv2rgb(h,s,v)
         self.color = (h,s,v)
         self.setRGB((r,g,b))
-        self.setHex(self.hsv2hex(self.color))
+        self.setHex(hsv2hex(self.color))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
         self.ui.color_view.setStyleSheet(f"border-radius: 5px;background-color: qlineargradient(x1:1, x2:0, stop:0 hsl({h}%,100%,50%), stop:1 #fff);")
 
@@ -130,17 +141,22 @@ class ColorPicker(QDialog):
             self.setRGB((cr,cg,cb))
             self.ui.blue.selectAll()
 
-        self.color = self.rgb2hsv(r,g,b)
+        self.color = rgb2hsv(r,g,b)
         self.setHSV(self.color)
-        self.setHex(self.rgb2hex((r,g,b)))
+        self.setHex(rgb2hex((r,g,b)))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
 
     def hexChanged(self):
         hex = self.ui.hex.text()
-        r,g,b = self.hex2rgb(hex)
-        self.color = self.hex2hsv(hex)
+        try:
+            int(hex, 16)
+        except ValueError:
+            hex = "000000"
+            self.ui.hex.setText("")
+        r, g, b = hex2rgb(hex)
+        self.color = hex2hsv(hex)
         self.setHSV(self.color)
-        self.setRGB((r,g,b))
+        self.setRGB((r, g, b))
         self.ui.color_vis.setStyleSheet(f"background-color: rgb({r},{g},{b})")
 
     def alphaChanged(self):
@@ -153,9 +169,7 @@ class ColorPicker(QDialog):
             self.ui.alpha.selectAll()
         self.alpha = alpha
 
-
-
-    ## Internal setting functions
+    # Internal setting functions
     def setRGB(self, c):
         r,g,b = c
         self.ui.red.setText(str(self.i(r)))
@@ -163,9 +177,9 @@ class ColorPicker(QDialog):
         self.ui.blue.setText(str(self.i(b)))
 
     def setHSV(self, c):
-        self.ui.hue_selector.move(7, (100 - c[0]) * 1.85)
+        self.ui.hue_selector.move(7, int((100 - c[0]) * 1.85))
         self.ui.color_view.setStyleSheet(f"border-radius: 5px;background-color: qlineargradient(x1:1, x2:0, stop:0 hsl({c[0]}%,100%,50%), stop:1 #fff);")
-        self.ui.selector.move(c[1] * 2 - 6, (200 - c[2] * 2) - 6)
+        self.ui.selector.move(int(c[1] * 2 - 6), int((200 - c[2] * 2) - 6))
 
     def setHex(self, c):
         self.ui.hex.setText(c)
@@ -173,52 +187,7 @@ class ColorPicker(QDialog):
     def setAlpha(self, a):
         self.ui.alpha.setText(str(a))
 
-
-    ## Color Utility
-    def hsv2rgb(self, h_or_color, s = 0, v = 0, a = None):
-        if type(h_or_color).__name__ == "tuple":
-            if len(h_or_color) == 4:
-                h,s,v,a = h_or_color
-            else:
-                h,s,v = h_or_color
-        else: h = h_or_color
-        r,g,b = colorsys.hsv_to_rgb(h / 100.0, s / 100.0, v / 100.0)
-        if a != None: return (r * 255, g * 255, b * 255, a)
-        return (r * 255, g * 255, b * 255)
-
-    def rgb2hsv(self, r_or_color, g = 0, b = 0, a = None):
-        if type(r_or_color).__name__ == "tuple":
-            if len(r_or_color) == 4:
-                r,g,b,a = r_or_color
-            else:
-                r,g,b = r_or_color
-        else: r = r_or_color
-        h,s,v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
-        if a != None: return (h * 100, s * 100, v * 100, a)
-        return (h * 100, s * 100, v * 100)
-
-    def hex2rgb(self, hex):
-        if len(hex) < 6: hex += "0"*(6-len(hex))
-        elif len(hex) > 6: hex = hex[0:6]
-        rgb = tuple(int(hex[i:i+2], 16) for i in (0,2,4))
-        return rgb
-
-    def rgb2hex(self, r_or_color, g = 0, b = 0, a = 0):
-        if type(r_or_color).__name__ == "tuple": r,g,b = r_or_color[:3]
-        else: r = r_or_color
-        hex = '%02x%02x%02x' % (int(r),int(g),int(b))
-        return hex
-
-    def hex2hsv(self, hex):
-        return self.rgb2hsv(self.hex2rgb(hex))
-
-    def hsv2hex(self, h_or_color, s = 0, v = 0, a = 0):
-        if type(h_or_color).__name__ == "tuple": h,s,v = h_or_color[:3]
-        else: h = h_or_color
-        return self.rgb2hex(self.hsv2rgb(h,s,v))
-
-
-    ## Dragging Functions
+    # Dragging Functions
     def setDragPos(self, event):
         self.dragPos = event.globalPos()
 
@@ -244,23 +213,120 @@ class ColorPicker(QDialog):
             pos = event.pos().y() - 7
             if pos < 0: pos = 0
             if pos > 185: pos = 185
-            self.ui.hue_selector.move(QPoint(7,pos))
+            self.ui.hue_selector.move(QPoint(7, pos))
             self.hsvChanged()
 
-    ## Utility
+    # Utility
 
-    ## Custom int() function, that converts uncastable strings to 0
+    # Custom int() function, that converts invalid strings to 0
     def i(self, text):
         try: return int(text)
-        except: return 0
+        except ValueError: return 0
 
-    ## clamp function to remove near-zero values
+    # clamp function to remove near-zero values
     def clampRGB(self, rgb):
-        r,g,b = rgb
+        r, g, b = rgb
         if r<0.0001: r=0
         if g<0.0001: g=0
         if b<0.0001: b=0
         if r>255: r=255
         if g>255: g=255
         if b>255: b=255
-        return (r,g,b)
+        return r, g, b
+
+
+# Color Utility
+def hsv2rgb(h_or_color: tuple | int, s: int = 0, v: int = 0, a: int = None) -> tuple:
+    """Convert hsv color to rgb color.
+
+    :param h_or_color: The 'hue' value or a color tuple.
+    :param s: The 'saturation' value.
+    :param v: The 'value' value.
+    :param a: The 'alpha' value.
+    :return: The converted rgb tuple color.
+    """
+
+    if type(h_or_color).__name__ == "tuple":
+        if len(h_or_color) == 4:
+            h, s, v, a = h_or_color
+        else:
+            h, s, v = h_or_color
+    else: h = h_or_color
+    r, g, b = colorsys.hsv_to_rgb(h / 100.0, s / 100.0, v / 100.0)
+    if a is not None: return r * 255, g * 255, b * 255, a
+    return r * 255, g * 255, b * 255
+
+
+def rgb2hsv(r_or_color: tuple | int, g: int = 0, b: int = 0, a: int = None) -> tuple:
+    """Convert rgb color to hsv color.
+
+    :param r_or_color: The 'red' value or a color tuple.
+    :param g: The 'green' value.
+    :param b: The 'blue' value.
+    :param a: The 'alpha' value.
+    :return: The converted hsv tuple color.
+    """
+
+    if type(r_or_color).__name__ == "tuple":
+        if len(r_or_color) == 4:
+            r, g, b, a = r_or_color
+        else:
+            r, g, b = r_or_color
+    else: r = r_or_color
+    h, s, v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, b / 255.0)
+    if a is not None: return h * 100, s * 100, v * 100, a
+    return h * 100, s * 100, v * 100
+
+
+def hex2rgb(hex: str) -> tuple:
+    """Convert hex color to rgb color.
+
+    :param hex: The hexadecimal string ("xxxxxx").
+    :return: The converted rgb tuple color.
+    """
+
+    if len(hex) < 6: hex += "0"*(6-len(hex))
+    elif len(hex) > 6: hex = hex[0:6]
+    rgb = tuple(int(hex[i:i+2], 16) for i in (0,2,4))
+    return rgb
+
+
+def rgb2hex(r_or_color: tuple | int, g: int = 0, b: int = 0, a: int = 0) -> str:
+    """Convert rgb color to hex color.
+
+    :param r_or_color: The 'red' value or a color tuple.
+    :param g: The 'green' value.
+    :param b: The 'blue' value.
+    :param a: The 'alpha' value.
+    :return: The converted hexadecimal color.
+    """
+
+    if type(r_or_color).__name__ == "tuple": r, g, b = r_or_color[:3]
+    else: r = r_or_color
+    hex = '%02x%02x%02x' % (int(r), int(g), int(b))
+    return hex
+
+
+def hex2hsv(hex: str) -> tuple:
+    """Convert hex color to hsv color.
+
+    :param hex: The hexadecimal string ("xxxxxx").
+    :return: The converted hsv tuple color.
+    """
+
+    return rgb2hsv(hex2rgb(hex))
+
+
+def hsv2hex(h_or_color: tuple | int, s: int = 0, v: int = 0, a: int = 0) -> str:
+    """Convert hsv color to hex color.
+
+    :param h_or_color: The 'hue' value or a color tuple.
+    :param s: The 'saturation' value.
+    :param v: The 'value' value.
+    :param a: The 'alpha' value.
+    :return: The converted hexadecimal color.
+    """
+
+    if type(h_or_color).__name__ == "tuple": h, s, v = h_or_color[:3]
+    else: h = h_or_color
+    return rgb2hex(hsv2rgb(h, s, v))

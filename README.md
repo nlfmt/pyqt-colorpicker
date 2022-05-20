@@ -12,20 +12,13 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
    pip install PyQt5
    ```
 
-   then add the `colorpicker` folder into your project folder and import `ColorPicker`, and `QApplication`
+   then add the `colorpicker` folder into your project folder and import `ColorPicker`
 
    ```python
    from colorpicker import ColorPicker
-   from PyQt5.QtWidgets import QApplication
    ```
 
-2. To ask for a color first create a `QApplication`:
-
-   ```python
-   app = QApplication([])
-   ```
-
-   then simply create an instance of the class:
+2. To ask for a color simply create an instance of the class:
 
    ```python
    my_color_picker = ColorPicker()
@@ -83,11 +76,13 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
 
 * Example:
   ```python
+  from colorpicker import ColorPicker, hsv2rgb, rgb2hsv 
+  
   cp = ColorPicker(useAlpha=True)
 
-  old_color = cp.hsv2rgb((50,50,100,100))  # => (127,255,255,100)
+  old_color = hsv2rgb((50,50,100,100))  # => (127,255,255,100)
 
-  picked_color = cp.rgb2hsv(cp.getColor(old_color))
+  picked_color = rgb2hsv(cp.getColor(old_color))
   ```
 
 * **Color Formats:**
