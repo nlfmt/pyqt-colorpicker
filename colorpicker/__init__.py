@@ -1,1 +1,0 @@
-from .colorpicker import ColorPicker

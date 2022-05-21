@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:/Files/Code/repos/pyqt-colorpicker/colorpicker/ui/ui_dark.ui'
+# Form implementation generated from reading ui file 'D:/Files/Code/repos/pyqt-vcolorpicker/vcolorpicker/ui/ui_dark.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.0
 #
