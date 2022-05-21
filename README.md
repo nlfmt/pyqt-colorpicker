@@ -1,5 +1,5 @@
-# PyQt5 Color Picker
-Simple Color Picker with a modern UI created with PyQt5 to easily get color input from the user.
+# vcolorpicker
+Simple visual Color Picker with a modern UI created with PyQt5 to easily get color input from the user.
 
 ![colorpicker](https://user-images.githubusercontent.com/71983360/95017068-408f8100-0657-11eb-8001-a6788e94abba.png)
 
@@ -92,15 +92,26 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
 
 
 ## Previous versions
-  In Previous version you had to create a ColorPicker object first and then\
-call it's `getColor` method. This is still supported, you just have to\
-import the `ColorPicker` class.
+  In previous versions you had to create a ColorPicker object first and then\
+  call it's `getColor` method. This is still supported, you just have to\
+  import the `ColorPicker` class.
 
-The color conversion functions are not methods anymore, you can import them\
-directly with `from vcolorpicker import hsv2rgb, rgb2hsv`.
+  The color conversion functions are not methods anymore, you can import them\
+  directly with `from vcolorpicker import hsv2rgb, rgb2hsv`.
 
-You also had to create a `QApplication` object before being able to run the\
-ColorPicker, now it automatically creates one by itself if there isn't one yet.
+  You also had to create a `QApplication` object before being able to run the\
+  ColorPicker, now it automatically creates one by itself if there isn't one yet.\
+  If you need to get the auto-created application, you can use this:
+
+  ```python
+  from PyQt5.QtWidgets import QApplication
+  app = QApplication.instance()
+  ```
+
+## Bugs and Improvement ideas
+  If you find a bug, you can open an issue or write me an email (nlfmt@gmx.de)\
+  and I will try to get to it as fast as possible, or you can implement it\
+  yourself and create a pull request.
 
 
 ## License
