@@ -1,23 +1,24 @@
 # ------------------------------------- #
 #                                       #
 # Modern Color Picker by Tom F.         #
-# Version 1.3.0                         #
+# Version 1.4.1                         #
 # made with Qt Creator & PyQt5          #
 #                                       #
 # ------------------------------------- #
 
 import colorsys
+from typing import Union
 
-from PyQt5.QtCore import (QPoint, Qt, QSize)
+from PyQt5.QtCore import (QPoint, Qt)
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (QApplication, QDialog, QGraphicsDropShadowEffect)
 
-from .ui.img import *
+from .ui_dark import Ui_ColorPicker as Ui_Dark
+from .ui_dark_alpha import Ui_ColorPicker as Ui_Dark_Alpha
+from .ui_light import Ui_ColorPicker as Ui_Light
+from .ui_light_alpha import Ui_ColorPicker as Ui_Light_Alpha
 
-from .ui.ui_dark import Ui_ColorPicker as Ui_Dark
-from .ui.ui_dark_alpha import Ui_ColorPicker as Ui_Dark_Alpha
-from .ui.ui_light import Ui_ColorPicker as Ui_Light
-from .ui.ui_light_alpha import Ui_ColorPicker as Ui_Light_Alpha
+from .img import *
 
 
 class ColorPicker(QDialog):
@@ -36,6 +37,7 @@ class ColorPicker(QDialog):
         super(ColorPicker, self).__init__()
 
         self.usingAlpha = useAlpha
+        self.usingLightTheme = lightTheme
 
         # Call UI Builder function
         if useAlpha:
@@ -236,7 +238,7 @@ class ColorPicker(QDialog):
 
 
 # Color Utility
-def hsv2rgb(h_or_color: tuple | int, s: int = 0, v: int = 0, a: int = None) -> tuple:
+def hsv2rgb(h_or_color: Union[tuple, int], s: int = 0, v: int = 0, a: int = None) -> tuple:
     """Convert hsv color to rgb color.
 
     :param h_or_color: The 'hue' value or a color tuple.
@@ -257,7 +259,7 @@ def hsv2rgb(h_or_color: tuple | int, s: int = 0, v: int = 0, a: int = None) -> t
     return r * 255, g * 255, b * 255
 
 
-def rgb2hsv(r_or_color: tuple | int, g: int = 0, b: int = 0, a: int = None) -> tuple:
+def rgb2hsv(r_or_color: Union[tuple, int], g: int = 0, b: int = 0, a: int = None) -> tuple:
     """Convert rgb color to hsv color.
 
     :param r_or_color: The 'red' value or a color tuple.
@@ -291,7 +293,7 @@ def hex2rgb(hex: str) -> tuple:
     return rgb
 
 
-def rgb2hex(r_or_color: tuple | int, g: int = 0, b: int = 0, a: int = 0) -> str:
+def rgb2hex(r_or_color: Union[tuple, int], g: int = 0, b: int = 0, a: int = 0) -> str:
     """Convert rgb color to hex color.
 
     :param r_or_color: The 'red' value or a color tuple.
@@ -317,7 +319,7 @@ def hex2hsv(hex: str) -> tuple:
     return rgb2hsv(hex2rgb(hex))
 
 
-def hsv2hex(h_or_color: tuple | int, s: int = 0, v: int = 0, a: int = 0) -> str:
+def hsv2hex(h_or_color: Union[tuple, int], s: int = 0, v: int = 0, a: int = 0) -> str:
     """Convert hsv color to hex color.
 
     :param h_or_color: The 'hue' value or a color tuple.
@@ -330,3 +332,51 @@ def hsv2hex(h_or_color: tuple | int, s: int = 0, v: int = 0, a: int = 0) -> str:
     if type(h_or_color).__name__ == "tuple": h, s, v = h_or_color[:3]
     else: h = h_or_color
     return rgb2hex(hsv2rgb(h, s, v))
+
+
+# toplevel functions
+
+__instance = None
+__lightTheme = False
+__useAlpha = False
+
+
+def useAlpha(value=True) -> None:
+    """Set if the ColorPicker should display an alpha field.
+
+    :param value: True for alpha field, False for no alpha field. Defaults to True
+    :return:
+    """
+    global __useAlpha
+    __useAlpha = value
+
+
+def useLightTheme(value=True) -> None:
+    """Set if the ColorPicker should use the light theme.
+
+    :param value: True for light theme, False for dark theme. Defaults to True
+    :return: None
+    """
+
+    global __lightTheme
+    __lightTheme = value
+
+
+def getColor(lc: tuple = None) -> tuple:
+    """Shows the ColorPicker and returns the picked color.
+
+    :param lc: The color to display as previous color.
+    :return: The picked color.
+    """
+
+    global __instance
+
+    if __instance is None:
+        __instance = ColorPicker(useAlpha=__useAlpha, lightTheme=__lightTheme)
+
+    if __useAlpha != __instance.usingAlpha or __lightTheme != __instance.usingLightTheme:
+        del __instance
+        __instance = ColorPicker(useAlpha=__useAlpha, lightTheme=__lightTheme)
+
+    return __instance.getColor(lc)
+

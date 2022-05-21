@@ -4,30 +4,28 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
 ![colorpicker](https://user-images.githubusercontent.com/71983360/95017068-408f8100-0657-11eb-8001-a6788e94abba.png)
 
 
+## Installation
+
+1. Install using pip:
+
+   ```
+   pip install vcolorpicker
+   ```
+
+   or clone the repository yourself and run:
+
+   ```
+   pip install .
+   ```
+
 ## Usage
 
-1. To use the Color Picker in a python project make sure you have the `PyQt5` library:
-
-   ```
-   pip install PyQt5
-   ```
-
-   then add the `colorpicker` folder into your project folder and import `ColorPicker`
+2. To ask for a color, import the `getColor` function and run it:
 
    ```python
-   from colorpicker import ColorPicker
-   ```
-
-2. To ask for a color simply create an instance of the class:
-
-   ```python
-   my_color_picker = ColorPicker()
-   ```
-
-   and run the `getColor` method:
-
-   ```python
-   picked_color = my_color_picker.getColor()
+   from vcolorpicker import getColor
+   
+   color = getColor()
    ```
 
 ## Customization
@@ -36,35 +34,37 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
 
    ```python
    old_color = (255,255,255)
-   picked_color = my_color_picker.getColor(old_color)
+   picked_color = getColor(old_color)
    ```
 
 * **Changing the UI Theme**
 
   ```python
-  my_color_picker = ColorPicker(lightTheme=True)
+  from vcolorpicker import useLightTheme
+  
+  useLightTheme(True)
   ```
 
 * **Adding Alpha selection**
 
   ```python
-  my_color_picker = ColorPicker(useAlpha=True)
+  from vcolorpicker import useAlpha
+  
+  useAlpha(True)
   ```
 
   When the ColorPicker uses Alpha, you have to pass a RGBA tuple\
   as the last color, otherwise there wil be an error.
 
   ```python
-  my_color_picker = ColorPicker(useAlpha=True)
-
   old_color = (255,255,255,100)
-  picked_color = my_color_picker.getColor(old_color) # => (r,g,b,a)
+  picked_color = getColor(old_color)  # => (r,g,b,a)
   ```
 
 ## Color Formats and Conversion
 
 * The default format `getColor` will give you is RGB(A),\
-  but you can use Colorpickers color conversion functions\
+  but you can use vcolorpickers color conversion functions\
   if you have a different format like HSV or HEX.
 
    `hsv2rgb` **HSV(A)** to **RGB(A)**\
@@ -76,13 +76,11 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
 
 * Example:
   ```python
-  from colorpicker import ColorPicker, hsv2rgb, rgb2hsv 
+  from vcolorpicker import getColor, hsv2rgb, rgb2hsv 
   
-  cp = ColorPicker(useAlpha=True)
-
   old_color = hsv2rgb((50,50,100,100))  # => (127,255,255,100)
 
-  picked_color = rgb2hsv(cp.getColor(old_color))
+  picked_color = rgb2hsv(getColor(old_color))
   ```
 
 * **Color Formats:**
@@ -91,6 +89,18 @@ Simple Color Picker with a modern UI created with PyQt5 to easily get color inpu
   **HSV** values range from **0** to **100**\
   **HEX** values should be in format: `"XXXXXX"` or `"xxxxxx"`\
   **Alpha** values range from **0** to **100**
+
+
+## Previous versions
+  In Previous version you had to create a ColorPicker object first and then\
+call it's `getColor` method. This is still supported, you just have to\
+import the `ColorPicker` class.
+
+The color conversion functions are not methods anymore, you can import them\
+directly with `from vcolorpicker import hsv2rgb, rgb2hsv`.
+
+You also had to create a `QApplication` object before being able to run the\
+ColorPicker, now it automatically creates one by itself if there isn't one yet.
 
 
 ## License
