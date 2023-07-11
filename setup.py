@@ -6,12 +6,12 @@ setup(
     description='Open a visual vcolorpicker from any project.',
     long_description='Open a visual vcolorpicker from any project.\nFor more info visit '
                      'https://github.com/nlfmt/pyqt-colorpicker',
-    url='https://github.com/nlfmt/pyqt-colorpicker',
+    url='https://github.com/ae92736/pyside-colorpicker',
     author='nlfmt',
     author_email='nlfmt@gmx.de',
     license='MIT',
     packages=['vcolorpicker'],
-    install_requires=['pyqt5'],
+    install_requires=['PySide2'],
     keywords=["python", "color", "gui", "colorpicker", "visual"],
 
     classifiers=[

@@ -1,3 +1,7 @@
+#Disclamer
+This is a fork of nlfmt's pyqt-colorpicker repository, the only change is in the repository is changing pyqt5 library with pyside2 library.
+
+
 # vcolorpicker
 Simple visual Color Picker with a modern UI created with PySide2 to easily get color input from the user.
 
