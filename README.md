@@ -1,4 +1,4 @@
-#Disclamer
+# Disclamer
 This is a fork of nlfmt's pyqt-colorpicker repository, the only change is in the repository is changing pyqt5 library with pyside2 library.
 
 
