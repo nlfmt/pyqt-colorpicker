@@ -104,7 +104,7 @@ Simple visual Color Picker with a modern UI created with PySide2 to easily get c
   If you need to get the auto-created application, you can use this:
 
   ```python
-  from PyQt5.QtWidgets import QApplication
+  from PySide2.QtWidgets import QApplication
   app = QApplication.instance()
   ```
 
