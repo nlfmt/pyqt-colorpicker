@@ -1,5 +1,5 @@
 # vcolorpicker
-Simple visual Color Picker with a modern UI created with PyQt5 to easily get color input from the user.
+Simple visual Color Picker with a modern UI created with Qt to easily get color input from the user.
 
 ![colorpicker](https://user-images.githubusercontent.com/71983360/95017068-408f8100-0657-11eb-8001-a6788e94abba.png)
 
@@ -91,6 +91,10 @@ Simple visual Color Picker with a modern UI created with PyQt5 to easily get col
   **Alpha** values range from **0** to **100**
 
 
+## Compatibility
+  This package is compatible with **Python 3.7+** and above.
+  It uses [qtpy](https://github.com/spyder-ide/qtpy) under the hood, so it should work with all Qt bindings (PyQt5, PySide2, PySide6, PyQt6).
+
 ## Previous versions
   In previous versions you had to create a ColorPicker object first and then\
   call it's `getColor` method. This is still supported, you just have to\
@@ -115,6 +119,5 @@ Simple visual Color Picker with a modern UI created with PyQt5 to easily get col
 
 
 ## License
-
   This software is licensed under the **MIT License**.\
   More information is provided in the dedicated LICENSE file.
