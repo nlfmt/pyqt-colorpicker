@@ -1,6 +1,6 @@
 [project]
 name = "vcolorpicker"
-version = "1.4.1"
+version = "1.4.2"
 authors = [{name = "nlfmt", email = "nlfmt@gmx.de"}]
 description = 'Open a visual vcolorpicker from any project.'
 readme="README.md"

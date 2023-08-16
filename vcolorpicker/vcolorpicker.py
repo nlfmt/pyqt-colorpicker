@@ -1,7 +1,7 @@
 # ------------------------------------- #
 #                                       #
 # Modern Color Picker by Tom F.         #
-# Version 1.4.1                         #
+# Version 1.4.2                         #
 # made with Qt Creator & PyQt5          #
 #                                       #
 # ------------------------------------- #
