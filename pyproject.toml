@@ -1,24 +1,20 @@
-[project]
-name = "vcolorpicker"
-version = "1.4.1"
-description = 'Open a visual vcolorpicker from any project.'
-# long_description = 'Open a visual vcolorpicker from any project.\nFor more info visit https://github.com/nlfmt/pyqt-colorpicker'
-# url = 'https://github.com/nlfmt/pyqt-colorpicker'
-# author = 'nlfmt'
-# author_email = 'nlfmt@gmx.de'
-license = 'MIT'
-# packages = ['vcolorpicker']
-# install_requires = ['pyqt5']
-keywords = ["python", "color", "gui", "colorpicker", "visual"]
-
-classifiers=[
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.7',
-    'Programming Language :: Python :: 3.8',
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
-]
-
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "vcolorpicker"
+version = "1.4.1"
+authors = [{name = "nlfmt", email = "nlfmt@gmx.de"}]
+description = 'Open a visual vcolorpicker from any project.'
+readme="README.md"
+
+requires-python = ">=3.7"
+dependencies = ["pyqt5"]
+
+classifiers = ["License :: OSI Approved :: MIT License"]
+keywords = ["python", "color", "gui", "colorpicker", "visual"]
+
+
+[project.urls]
+source = 'https://github.com/nlfmt/pyqt-colorpicker'
