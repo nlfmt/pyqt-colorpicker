@@ -4,7 +4,7 @@ vcolorpicker
 Simply let a user pick a color using a visual selector.
 """
 
-__version__ = "1.4.2"
+__version__ = "1.4.3"
 __author__ = 'nlfmt'
 
 from qtpy import API_NAME
