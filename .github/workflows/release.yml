@@ -1,0 +1,41 @@
+name: Publish GitHub Release to PyPI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[publish]')
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.x
+
+    - name: Install pypa/build
+      run: >-
+        python3 -m
+        pip install
+        build
+        --user
+
+    - name: Build a binary wheel and a source tarball
+      run: >-
+        python3 -m
+        build
+        --sdist
+        --wheel
+        --outdir dist/
+        .
+
+    - name: Publish package to PyPI
+      uses: pypa/gh-action-pypi-publish@v1.8.8
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}

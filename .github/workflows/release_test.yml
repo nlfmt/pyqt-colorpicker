@@ -1,0 +1,41 @@
+name: Publish GitHub Release to TestPyPI
+
+on:
+  push:
+    branches-ignore: [master]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[publish]')
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.x
+
+    - name: Install pypa/build
+      run: >-
+        python3 -m
+        pip install
+        build
+        --user
+
+    - name: Build a binary wheel and a source tarball
+      run: >-
+        python3 -m
+        build
+        --sdist
+        --wheel
+        --outdir dist/
+        .
+
+    - name: Publish package to TestPyPI
+      uses: pypa/gh-action-pypi-publish@v1.8.8
+      with:
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        repository-url: https://test.pypi.org/legacy/
