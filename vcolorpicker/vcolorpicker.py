@@ -64,6 +64,7 @@ class ColorPicker(QDialog):
         self.ui.drop_shadow_frame.setGraphicsEffect(self.shadow)
 
         # Connect update functions
+        self.ui.hue.mousePressEvent = self.moveHueSelector
         self.ui.hue.mouseMoveEvent = self.moveHueSelector
         self.ui.red.textEdited.connect(self.rgbChanged)
         self.ui.green.textEdited.connect(self.rgbChanged)
