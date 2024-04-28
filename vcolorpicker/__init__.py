@@ -8,7 +8,6 @@ __version__ = "1.4.3"
 __author__ = 'nlfmt'
 
 from qtpy import API_NAME
-print("Using QtPy API: %s" % API_NAME)
 
 from .vcolorpicker import ColorPicker
 from .vcolorpicker import hsv2rgb, hsv2hex, rgb2hsv, rgb2hex, hex2rgb, hex2hsv
