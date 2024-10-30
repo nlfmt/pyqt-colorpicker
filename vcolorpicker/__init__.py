@@ -4,7 +4,7 @@ vcolorpicker
 Simply let a user pick a color using a visual selector.
 """
 
-__version__ = "1.4.3"
+__version__ = "1.4.4"
 __author__ = 'nlfmt'
 
 from .vcolorpicker import ColorPicker
