@@ -117,7 +117,7 @@ class ColorPicker(QDialog):
             return (r,g,b)
 
         else:
-            return self.lastcolor
+            return None
 
     # Update Functions
     def hsvChanged(self):
