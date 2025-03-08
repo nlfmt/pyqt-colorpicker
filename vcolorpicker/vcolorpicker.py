@@ -117,6 +117,7 @@ class ColorPicker(QDialog):
             return (r,g,b)
 
         else:
+            if self.usingAlpha: return (r, g, b, self.alpha)
             return self.lastcolor
 
     # Update Functions
