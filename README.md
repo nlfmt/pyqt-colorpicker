@@ -121,3 +121,9 @@ Simple visual Color Picker with a modern UI created with Qt to easily get color 
 ## License
   This software is licensed under the **MIT License**.\
   More information is provided in the dedicated LICENSE file.
+
+  
+## GitAds Sponsored
+[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=nlfmt/pyqt-colorpicker@github)](https://gitads.dev/v1/ad-track?source=nlfmt/pyqt-colorpicker@github)
+
+<!-- GitAds-Verify: 83W1SZRVOA2RXBWUOY1CKUUNVVU8I83F -->
